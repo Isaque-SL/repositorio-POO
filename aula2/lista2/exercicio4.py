@@ -1,3 +1,3 @@
-print("Digite uma frase:")
-frase = list(input().split())
-print(frase[-1])
+frase = input("Digite uma frase:\n")
+space = frase.rfind(' ') + 1
+print(frase[space:])
