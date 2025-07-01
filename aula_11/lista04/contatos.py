@@ -4,8 +4,13 @@ class Contato:
         self.__nome = n
         self.__email = e
         self.__fone = f
+
     def get_nome(self):
-        return self.__nome    
+        return self.__nome
+    
+    def get_ID(self):
+        return self.__id
+    
     def __str__(self):
         return f"{self.__id} - {self.__nome} - {self.__email} - {self.__fone}"
         
@@ -42,15 +47,18 @@ class ContatoUI:
         for c in cls.__contatos:
             print(c)
 
-#AaaaaaaaaaaaaaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     @classmethod
     def atualizar(cls):
-        id = input("Digite o ID que quer atualizar:\n")
-        print(cls.__contatos[id])
-        nome = input("Dgite o novo nome: ")
-        email = input("Digite o novo E-Mail: ")
-        fone = input("Digite o novo telefone: ")
-# AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        if len(cls.__contatos) == 0:
+            raise ValueError("Lista sem contatos.")
+        id = int(input("Digite o ID que quer atualizar:\n"))
+        for c in cls.__contatos:
+            if c.get_ID() == id:
+                nome = input("Digite o novo nome: ")
+                email = input("Digite o novo E-Mail: ")
+                fone = input("Digite o novo telefone: ")
+                cls.__contatos[cls.__contatos.index(c)] = Contato(id, nome, email, fone)
+
     @classmethod
     def excluir(cls):
         pass
