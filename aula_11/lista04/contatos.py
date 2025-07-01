@@ -36,6 +36,9 @@ class ContatoUI:
     @classmethod
     def inserir(cls):
         id = int(input("Informe o id do contato: "))
+        for c in cls.__contatos:
+            if id == c.get_ID():
+                raise ValueError("Já existe um contato com esse ID.")
         nome = input("Informe o nome: ")
         email = input("Informe o e-mail: ")
         fone = input("Informe o fone: ")
@@ -51,7 +54,7 @@ class ContatoUI:
     def atualizar(cls):
         if len(cls.__contatos) == 0:
             raise ValueError("Lista sem contatos.")
-        id = int(input("Digite o ID que quer atualizar:\n"))
+        id = int(input("Digite o ID do contato:\n"))
         for c in cls.__contatos:
             if c.get_ID() == id:
                 nome = input("Digite o novo nome: ")
@@ -61,7 +64,10 @@ class ContatoUI:
 
     @classmethod
     def excluir(cls):
-        pass
+        id = int(input("Digite o ID do contato: "))
+        for c in cls.__contatos:
+            if id == c.get_ID():
+                cls.__contatos.remove(c)
 
     @classmethod
     def pesquisar(cls):
