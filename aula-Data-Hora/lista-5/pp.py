@@ -7,10 +7,6 @@ class Paciente:
         self.set_cpf(cpf)
         self.set_telefone(tele)
         self.set_nascimento(nasc)
-        self.__nome = self.get_nome()
-        self.__cpf = self.get_cpf()
-        self.__tele = self.get_telefone()
-        self.__nasc = self.get_nascimento()
 
     def set_nome(self, nome):
         self.__nome = nome
@@ -43,12 +39,19 @@ class Paciente:
         return self.__nasc
     
     def idade(self):
-        hoje = timedelta(days = 1, hours = 12)
-        idade = self.get_nascimento
+        data_nasc = self.get_nascimento()
+        data_atual = datetime.now()
+        anos = data_atual.year - data_nasc.year
+        meses = abs(data_atual.month - data_nasc.month)
+        if data_nasc.month < data_atual.month:
+            anos -= 1
+        idade = [anos, meses]
+        return idade
+        
         pass
     
     def ToString(self):
-        return f"idade = {timedelta(days = self.get_nascimento}"
+        return f"idade = {self.idade()}"
 
 class UI:
     @staticmethod
@@ -56,7 +59,7 @@ class UI:
         nome = "sssss"
         cpf = 34
         tele = 333
-        nasc = datetime(2000, 1, 1)
+        nasc = datetime(2000, 8, 21)
 
         a = Paciente(nome, cpf, tele, nasc)
         print(a.ToString())
