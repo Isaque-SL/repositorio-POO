@@ -1,7 +1,7 @@
 import json
 from cliente import Cliente
 
-class ClienteDAO():
+class ClienteDAO:
     __objetos = []
 
     @classmethod
