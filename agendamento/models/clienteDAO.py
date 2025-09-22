@@ -1,4 +1,5 @@
 import json
+from cliente import Cliente
 
 class ClienteDAO():
     __objetos = []
@@ -26,3 +27,36 @@ class ClienteDAO():
             if obj.get_id() == id:
                 return obj
         return None
+    
+    @classmethod
+    def atualizar(cls, obj):
+        aux = cls.listar_id(obj.get_id())
+        if aux != None:
+            cls.__objetos.remove(aux)
+            cls.__objetos.append(obj)
+            cls.salvar()
+
+    @classmethod
+    def excluir(cls, obj):
+        aux = cls.listar_id(obj.get_id())
+        if aux != None:
+            cls.__objetos.remove(aux)
+            cls.salvar()
+    
+    @classmethod
+    def abrir(cls):
+        cls.__objetos = []
+        try:
+            with open("clientes.json", mode="r") as arquivo:
+                list_dic = json.load(arquivo)
+                for dic in list_dic:
+                    obj = Cliente.from_json(dic)
+                    cls.__objetos.append(obj)
+
+        except FileNotFoundError:
+            pass
+
+    @classmethod
+    def salvar(cls):
+        with open("clientes.json", mode="w") as arquivo:
+            json.dump(cls.__objetos, arquivo, default = Cliente.to_json)

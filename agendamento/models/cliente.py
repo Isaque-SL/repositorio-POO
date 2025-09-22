@@ -5,6 +5,9 @@ class Cliente:
         self.set_email(email)
         self.set_telefone(fone)
 
+    def __str__(self):
+        return f"{self.__id} - {self.__nome} - {self.__email} - {self.__fone}"
+    
     def set_id(self, id):
         self.__id = id
         
