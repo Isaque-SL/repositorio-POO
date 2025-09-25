@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import time
-from views.view import View
+from view import View
 
 class ManterClienteUI:
 
@@ -56,13 +56,13 @@ class ManterClienteUI:
                 View.cliente_atualizar(id, nome, email, fone)
                 st.success("Cliente atualizado com sucesso")
 
-def excluir():
-    clientes = View.cliente_listar()
-    if len(clientes) == 0:
-        st.write("Nenhum cliente cadastrado")
-    else:
-        op = st.selectbox("Exclusão de Clientes", clientes)
-        if st.button("Excluir"):
-            id = op.get_id()
-            View.cliente_excluir(id)
-            st.success("Cliente excluído com sucesso")
+    def excluir():
+        clientes = View.cliente_listar()
+        if len(clientes) == 0:
+            st.write("Nenhum cliente cadastrado")
+        else:
+            op = st.selectbox("Exclusão de Clientes", clientes)
+            if st.button("Excluir"):
+                id = op.get_id()
+                View.cliente_excluir(id)
+                st.success("Cliente excluído com sucesso")

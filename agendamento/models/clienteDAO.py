@@ -1,5 +1,5 @@
 import json
-from cliente import Cliente
+from models.cliente import Cliente
 
 class ClienteDAO:
     __objetos = []
