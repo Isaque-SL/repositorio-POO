@@ -54,13 +54,13 @@ class ManterServicoUI:
                 View.servico_atualizar(id, desc, valor)
                 st.success("Serviço atualizado com sucesso")
 
-def excluir():
-    servicos = View.servico_listar()
-    if len(servicos) == 0:
-        st.write("Nenhum serviço registrado")
-    else:
-        op = st.selectbox("Remoção de Serviços", servicos)
-        if st.button("Excluir"):
-            id = op.get_id()
-            View.servico_excluir(id)
-            st.success("Serviço removido com sucesso")
+    def excluir():
+        servicos = View.servico_listar()
+        if len(servicos) == 0:
+            st.write("Nenhum serviço registrado")
+        else:
+            op = st.selectbox("Remoção de Serviços", servicos)
+            if st.button("Excluir"):
+                id = op.get_id()
+                View.servico_excluir(id)
+                st.success("Serviço removido com sucesso")

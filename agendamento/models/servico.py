@@ -26,9 +26,9 @@ class Servico:
         return self.__valor
 
     def to_json(self):
-        dic = {'id' : self.__id, 'desc' : self.__desc, 'valor' : self.__valor}
+        dic = {"id":self.__id, "desc":self.__desc, "valor":self.__valor}
         return dic
     
     @staticmethod
     def from_json(dic):
-        return Servico(dic['id'], dic['desc'], dic['valor'])
+        return Servico(dic["id"], dic["desc"], dic["valor"])

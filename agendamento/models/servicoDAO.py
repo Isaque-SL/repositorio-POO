@@ -47,7 +47,7 @@ class ServicoDAO:
     def abrir(cls):
         cls.__objetos = []
         try:
-            with open("clientes.json", mode="r") as arquivo:
+            with open("servicos.json", mode="r") as arquivo:
                 list_dic = json.load(arquivo)
                 for dic in list_dic:
                     obj = Servico.from_json(dic)
