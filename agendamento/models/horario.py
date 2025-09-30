@@ -40,7 +40,7 @@ class Horario:
     
     def set_id_servico(self, id_servico):
         self.__id_servico = id_servico
-    
+       
     def to_json(self, dic):
         dic = {"id":self.__id, "data":self.__data.strftime("%d/%m/%Y %H:%M"), "confirmado":self.__confirmado, "id_cliente":self.__id_cliente, "id_servico":self.__id_servico}
         return dic
