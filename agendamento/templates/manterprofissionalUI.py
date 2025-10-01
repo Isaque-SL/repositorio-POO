@@ -49,11 +49,11 @@ class ManterProfissionalUI:
         else:
             op = st.selectbox("Atualização de Profissionais", profissionais)
             nome = st.text_input("Novo nome", op.get_nome())
-            email = st.text_input("Nova especialidade", op.get_especialidade())
-            fone = st.text_input("Novo conselho", op.get_conselho())
+            especialidade = st.text_input("Nova especialidade", op.get_especialidade())
+            conselho = st.text_input("Novo conselho", op.get_conselho())
             if st.button("Atualizar"):
                 id = op.get_id()
-                View.profissional_atualizar(id, nome, especialidade, conselho)
+                View.profissional_atualizar(nome, especialidade, conselho)
                 st.success("Profissional atualizado com sucesso")
 
     def excluir():
