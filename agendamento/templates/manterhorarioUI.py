@@ -34,7 +34,7 @@ class ManterHorarioUI:
                     servico = servico.get_descricao()
                 dic.append({"id" : obj.get_id(), "data" : obj.get_data(), "confirmado" : obj.get_confirmado(), "cliente" : cliente, "serviço" : servico})
             df = pd.DataFrame(dic)
-            st.dataframe(df)
+            st.dataframe(df, hide_index=True)
 
     def inserir():
         clientes = View.cliente_listar()
