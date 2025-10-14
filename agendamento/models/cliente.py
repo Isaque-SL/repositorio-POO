@@ -1,9 +1,10 @@
 class Cliente:
-    def __init__(self, id, nome, email, fone):
+    def __init__(self, id, nome, email, fone, senha):
         self.set_id(id)
         self.set_nome(nome)
         self.set_email(email)
         self.set_telefone(fone)
+        self.set_senha(senha)
 
     def __str__(self):
         return f"{self.__id} - {self.__nome} - {self.__email} - {self.__fone}"
@@ -20,6 +21,9 @@ class Cliente:
     def set_telefone(self, fone):
         self.__fone = fone
 
+    def set_senha(self, senha):
+        self.__senha = senha
+
     def get_id(self):
         return self.__id
     
@@ -32,10 +36,13 @@ class Cliente:
     def get_telefone(self):
         return self.__fone
     
+    def get_senha(self):
+        return self.__senha
+    
     def to_json(self):
-        dic = {"id":self.__id, "nome":self.__nome, "email":self.__email, "fone":self.__fone}
+        dic = {"id":self.__id, "nome":self.__nome, "email":self.__email, "fone":self.__fone, "senha" : self.__senha}
         return dic
 
     @staticmethod
     def from_json(dic):
-        return Cliente(dic["id"], dic["nome"], dic["email"], dic["fone"])
+        return Cliente(dic["id"], dic["nome"], dic["email"], dic["fone"], dic["senha"])

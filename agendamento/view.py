@@ -14,17 +14,28 @@ class View:
     def cliente_listar_id(id):
         return ClienteDAO.listar_id(id)
     
-    def cliente_inserir(nome, email, fone):
-       cliente = Cliente(0, nome, email, fone)
+    def cliente_inserir(nome, email, fone, senha):
+       cliente = Cliente(0, nome, email, fone, senha)
        ClienteDAO.inserir(cliente)
 
-    def cliente_atualizar(id, nome, email, fone):
-        cliente = Cliente(id, nome, email, fone)
+    def cliente_atualizar(id, nome, email, fone, senha):
+        cliente = Cliente(id, nome, email, fone, senha)
         ClienteDAO.atualizar(cliente)
         
     def cliente_excluir(id):
-        cliente = Cliente(id, "", "", "")
+        cliente = Cliente(id, "", "", "", "")
         ClienteDAO.excluir(cliente)
+
+    def cliente_criar_admin():
+        for c in View.cliente_listar():
+            if c.get_email() == "admin":
+                return View.cliente_inserir("admin", "admin", "admin", "1234")
+    
+    def cliente_autenticar(email, senha):
+        for c in View.cliente_listar():
+            if c.get_email() == email and c.get_senha() == senha:
+                return {"id": c.get_id(), "nome": c.get_nome()}
+        return None
 
     def servico_listar():
        return ServicoDAO.listar()
@@ -82,4 +93,6 @@ class View:
     def profissional_excluir(id):
         profissional = Profissional(id, "", "", "")
         ProfissionalDAO.excluir(profissional)
+    
+
 
