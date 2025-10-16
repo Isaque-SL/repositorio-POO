@@ -40,7 +40,7 @@ class Cliente:
         return self.__senha
     
     def to_json(self):
-        dic = {"id":self.__id, "nome":self.__nome, "email":self.__email, "fone":self.__fone, "senha" : self.__senha}
+        dic = {"id":self.__id, "nome":self.__nome, "email":self.__email, "fone":self.__fone, "senha":self.__senha}
         return dic
 
     @staticmethod
