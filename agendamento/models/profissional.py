@@ -40,10 +40,16 @@ class Profissional:
     def get_conselho(self):
         return self.__conselho
     
+    def get_email(self):
+        return self.__email
+    
+    def get_senha(self):
+        return self.__senha
+
     def to_json(self):
-        dic = {"id":self.__id, "nome":self.__nome, "especialidade":self.__especialidade, "conselho":self.__conselho}
+        dic = {"id":self.__id, "nome":self.__nome, "especialidade":self.__especialidade, "conselho":self.__conselho, "email":self.__email, "senha":self.__senha}
         return dic
 
     @staticmethod
     def from_json(dic):
-        return Profissional(dic["id"], dic["nome"], dic["especialidade"], dic["conselho"])
+        return Profissional(dic["id"], dic["nome"], dic["especialidade"], dic["conselho"], dic["email"], dic["senha"])

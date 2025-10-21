@@ -5,18 +5,23 @@ from templates.manterprofissionalUI import ManterProfissionalUI
 from templates.abrircontaUI import AbrirContaUI
 from templates.loginUI import LoginUI
 from templates.perfilclienteUI import PerfilClienteUI
+from templates.perfilprofissionalUI import PerfilProfissionalUI
 from view import View
 import streamlit as st
 
 class IndexUI:
-
     def menu_visitante():
         op = st.sidebar.selectbox("Menu", ["Entrar no Sistema", "Abrir Conta"])
         if op == "Entrar no Sistema":
             LoginUI.main()
         if op == "Abrir Conta":
             AbrirContaUI.main()
-    
+
+    def menu_profissional():
+        op = st.sidebar.selectbox("Menu", ["Entrar no Sistema", "Abrir Conta"])
+        if op == "Meus Dados":
+            PerfilProfissionalUI.main()
+
     def menu_cliente():
         op = st.sidebar.selectbox("Menu", ["Meus Dados"])
         if op == "Meus Dados":

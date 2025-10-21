@@ -82,17 +82,25 @@ class View:
     def profissional_listar_id(id):
         return ProfissionalDAO.listar_id(id)
     
-    def profissional_inserir(nome, especialidade, conselho):
-       profissional = Profissional(0, nome, especialidade, conselho)
+    def profissional_inserir(nome, especialidade, conselho, email, senha):
+       profissional = Profissional(0, nome, especialidade, conselho, email, senha)
        ProfissionalDAO.inserir(profissional)
 
-    def profissional_atualizar(nome, especialidade, conselho):
-        profissional = Profissional(id, nome, especialidade, conselho)
+    def profissional_atualizar(nome, especialidade, conselho, email, senha):
+        profissional = Profissional(id, nome, especialidade, conselho, email, senha)
         ProfissionalDAO.atualizar(profissional)
         
     def profissional_excluir(id):
-        profissional = Profissional(id, "", "", "")
+        profissional = Profissional(id, "", "", "", "", "")
         ProfissionalDAO.excluir(profissional)
     
+    def profissional_autenticar(email, senha):
+        for p in View.profissional_listar():
+            if p.get_email() == email and p.get_senha() == senha:
+                return {"id": p.get_id(), "nome": p.get_nome()}
+        return None
 
-
+    def profissional_criar_admin():
+        for p in View.profissional_listar():
+            if p.get_email() == "admin":
+                return View.profissional_inserir("admin", "admin", "admin", "email", "1234")
