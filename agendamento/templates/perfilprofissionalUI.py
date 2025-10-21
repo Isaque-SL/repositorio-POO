@@ -1,6 +1,5 @@
 import streamlit as st
 from view import View
-import time
 
 class PerfilProfissionalUI:
     def main():
@@ -13,5 +12,5 @@ class PerfilProfissionalUI:
         senha = st.text_input("Informe a nova senha", op.get_senha(), type="password")
         if st.button("Atualizar"):
             id = op.get_id()
-            View.cliente_atualizar(id, nome, especialidade, conselho, email, senha)
+            View.profissional_atualizar(id, nome, especialidade, conselho, email, senha)
             st.success("Profissional atualizado com sucesso")

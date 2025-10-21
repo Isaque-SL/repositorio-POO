@@ -8,7 +8,7 @@ class Profissional:
         self.set_senha(senha)
 
     def __str__(self):
-        return f"{self.__id} - {self.__nome} - {self.__especialidade} - {self.__conselho}"
+        return f"{self.__id} - {self.__nome} - {self.__especialidade} - {self.__conselho} - {self.__email}"
     
     def set_id(self, id):
         self.__id = id

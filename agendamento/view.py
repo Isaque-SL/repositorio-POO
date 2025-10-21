@@ -86,7 +86,7 @@ class View:
        profissional = Profissional(0, nome, especialidade, conselho, email, senha)
        ProfissionalDAO.inserir(profissional)
 
-    def profissional_atualizar(nome, especialidade, conselho, email, senha):
+    def profissional_atualizar(id, nome, especialidade, conselho, email, senha):
         profissional = Profissional(id, nome, especialidade, conselho, email, senha)
         ProfissionalDAO.atualizar(profissional)
         
