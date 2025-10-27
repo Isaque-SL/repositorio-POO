@@ -1,11 +1,12 @@
-from templates.manterclienteUI import ManterClienteUI
+from agendamento.templates.cliente.manterclienteUI import ManterClienteUI
 from templates.manterservicoUI import ManterServicoUI
 from templates.manterhorarioUI import ManterHorarioUI
-from templates.manterprofissionalUI import ManterProfissionalUI
+from agendamento.templates.profissional.manterprofissionalUI import ManterProfissionalUI
 from templates.abrircontaUI import AbrirContaUI
 from templates.loginUI import LoginUI
-from templates.perfilclienteUI import PerfilClienteUI
-from templates.perfilprofissionalUI import PerfilProfissionalUI
+from agendamento.templates.cliente.perfilclienteUI import PerfilClienteUI
+from agendamento.templates.profissional.perfilprofissionalUI import PerfilProfissionalUI
+from agendamento.templates.cliente.agendarservicoUI import AgendarServicoUI
 from view import View
 import streamlit as st
 
@@ -23,9 +24,11 @@ class IndexUI:
             PerfilProfissionalUI.main()
 
     def menu_cliente():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço"])
         if op == "Meus Dados":
             PerfilClienteUI.main()
+        if op == "Agendar Serviço":
+            AgendarServicoUI.main()
     
     def menu_admin():            
         op = st.sidebar.selectbox("Menu", ["Cadastro de Clientes", "Cadastro de Serviços", "Cadastro de Horários", "Cadastro de Profissionais"])
