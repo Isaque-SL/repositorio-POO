@@ -3,22 +3,20 @@ from datetime import timedelta
 
 data = "29/10/2025"
 horarios = []
-h_ini = "09:00"
-h_fin = "12:00"
-i = 0 # inicio de novos horários
-n = int(h_fin.split(":")[0]) - int(h_ini.split(":")[0])
-intervalo = 13 # duração de cada horário
-c = 0 # quantidade de horários criados
+h_ini = "23:00"
+h_fin = "01:00"
+intervalo = 30 
+horario_ini_str = f"{data} {h_ini}"
+horario_fin_str = f"{data} {h_fin}"
+horario_final = datetime.strptime(horario_fin_str, "%d/%m/%Y %H:%M")
+horario = datetime.strptime(horario_ini_str, "%d/%m/%Y %H:%M")
+horarios.append(horario)
+if horario_final < horario:
+    horario_final += timedelta(days=1)
 
-horario_str = f"{data} {h_ini}"
-horario = datetime.strptime(horario_str, "%d/%m/%Y %H:%M")
-for i in range(n):
-    print(horario)
-    print("Minutos:", horario.minute, sep="\n")
+while horario < horario_final:
     horario += timedelta(minutes=intervalo)
+    horarios.append(horario)
 
-# print(horario)
-# while i <= n:
-#     i += intervalo
-#     c += 1
-# print(c)
+for i in horarios:
+    print(i)

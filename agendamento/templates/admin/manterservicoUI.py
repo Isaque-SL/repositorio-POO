@@ -29,8 +29,8 @@ class ManterServicoUI:
             list_dic = []
             for obj in servicos:
                 list_dic.append(obj.to_json())
-                df = pd.DataFrame(list_dic)
-                st.dataframe(df)
+            df = pd.DataFrame(list_dic)
+            st.dataframe(df)
     
     def inserir():
         desc = st.text_input("Descreva o serviço prestado")

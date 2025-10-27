@@ -1,12 +1,13 @@
-from agendamento.templates.cliente.manterclienteUI import ManterClienteUI
-from templates.manterservicoUI import ManterServicoUI
-from templates.manterhorarioUI import ManterHorarioUI
-from agendamento.templates.profissional.manterprofissionalUI import ManterProfissionalUI
+from templates.admin.manterclienteUI import ManterClienteUI
+from templates.admin.manterservicoUI import ManterServicoUI
+from templates.admin.manterhorarioUI import ManterHorarioUI
+from templates.admin.manterprofissionalUI import ManterProfissionalUI
 from templates.abrircontaUI import AbrirContaUI
+from templates.profissional.abriragendaUI import AbrirAgendaUI
 from templates.loginUI import LoginUI
-from agendamento.templates.cliente.perfilclienteUI import PerfilClienteUI
-from agendamento.templates.profissional.perfilprofissionalUI import PerfilProfissionalUI
-from agendamento.templates.cliente.agendarservicoUI import AgendarServicoUI
+from templates.cliente.perfilclienteUI import PerfilClienteUI
+from templates.profissional.perfilprofissionalUI import PerfilProfissionalUI
+from templates.cliente.agendarservicoUI import AgendarServicoUI
 from view import View
 import streamlit as st
 
@@ -19,10 +20,12 @@ class IndexUI:
             AbrirContaUI.main()
 
     def menu_profissional():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Abrir Agenda"])
         if op == "Meus Dados":
             PerfilProfissionalUI.main()
-
+        if op == "Abrir Agenda":
+            AbrirAgendaUI.main()
+            
     def menu_cliente():
         op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço"])
         if op == "Meus Dados":

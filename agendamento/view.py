@@ -60,10 +60,11 @@ class View:
         servico = Servico(id, "", "")
         ServicoDAO.excluir(servico)
 
-    def horario_inserir(data, confirmado, id_cliente, id_servico):
+    def horario_inserir(data, confirmado = False, id_cliente = None, id_profissional = None, id_servico = None):
         c = Horario(0, data)
         c.set_confirmado(confirmado)
         c.set_id_cliente(id_cliente)
+        c.set_id_profissional(id_profissional)
         c.set_id_servico(id_servico)
         HorarioDAO.inserir(c)
 
@@ -72,7 +73,9 @@ class View:
         r.sort(key = lambda obj : obj.get_data())
         return r
     
-    def horario_atualizar(id, data, confirmado, id_cliente, id_servico):
+    
+
+    def horario_atualizar(id, data, confirmado, id_cliente, id_profissional, id_servico):
         c = Horario(id, data)
         c.set_confirmado(confirmado)
         c.set_id_cliente(id_cliente)
