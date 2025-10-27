@@ -48,8 +48,6 @@ class Paciente:
         idade = [anos, meses]
         return idade
         
-        pass
-    
     def ToString(self):
         return f"idade = {self.idade()}"
 
