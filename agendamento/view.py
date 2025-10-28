@@ -80,6 +80,7 @@ class View:
         c = Horario(id, data)
         c.set_confirmado(confirmado)
         c.set_id_cliente(id_cliente)
+        c.set_id_profissional(id_profissional)
         c.set_id_servico(id_servico)
         HorarioDAO.atualizar(c)
 
