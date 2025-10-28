@@ -57,5 +57,6 @@ class Horario:
         horario = Horario(dic["id"], datetime.strptime(dic["data"], "%d/%m/%Y %H:%M"))
         horario.set_confirmado(dic["confirmado"])
         horario.set_id_cliente(dic["id_cliente"])
+        horario.set_id_profissional(dic["id_profissional"])
         horario.set_id_servico(dic["id_servico"])
         return horario

@@ -4,6 +4,7 @@ from templates.admin.manterhorarioUI import ManterHorarioUI
 from templates.admin.manterprofissionalUI import ManterProfissionalUI
 from templates.abrircontaUI import AbrirContaUI
 from templates.profissional.abriragendaUI import AbrirAgendaUI
+from templates.profissional.visualizaragendaUI import VisualizarAgendaUI
 from templates.loginUI import LoginUI
 from templates.cliente.perfilclienteUI import PerfilClienteUI
 from templates.profissional.perfilprofissionalUI import PerfilProfissionalUI
@@ -20,11 +21,13 @@ class IndexUI:
             AbrirContaUI.main()
 
     def menu_profissional():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Abrir Agenda"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Abrir Agenda", "Minha Agenda"])
         if op == "Meus Dados":
             PerfilProfissionalUI.main()
         if op == "Abrir Agenda":
             AbrirAgendaUI.main()
+        if op == "Minha Agenda":
+            VisualizarAgendaUI.main()
             
     def menu_cliente():
         op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço"])

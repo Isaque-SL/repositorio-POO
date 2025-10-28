@@ -73,7 +73,8 @@ class View:
         r.sort(key = lambda obj : obj.get_data())
         return r
     
-    
+    def horario_listar_id(id):
+        return HorarioDAO.listar_id(id)
 
     def horario_atualizar(id, data, confirmado, id_cliente, id_profissional, id_servico):
         c = Horario(id, data)
