@@ -17,6 +17,7 @@ class LoginUI:
                 else:
                     st.session_state["usuario_id"] = p["id"]
                     st.session_state["usuario_nome"] = p["nome"]
+                    st.session_state["usuario_email"] = email
                     st.rerun()
             else:
                 c = View.cliente_autenticar(email, senha)
@@ -25,4 +26,5 @@ class LoginUI:
                 else:
                     st.session_state["usuario_id"] = c["id"]
                     st.session_state["usuario_nome"] = c["nome"]
+                    st.session_state["usuario_email"] = email
                     st.rerun()
