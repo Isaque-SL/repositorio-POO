@@ -1,6 +1,11 @@
-print("Hello Mundo!")
-print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-if True:
-    print("BBBBBBBBBBBBBBBBBBBBBBBBBB")
-else:
-    print("CCCCCCCCCCCCCCCCCCCCCCCCCCCC")
+try:
+    a = int(input("Informe o dividendo: "))
+    b = int(input("Informe o divisor: "))
+    print(a/b)
+except ValueError as erro:
+    print(erro)
+except ZeroDivisionError as erro:
+    print(erro)
+finally:
+    print("Ok")
+    print("Fim")

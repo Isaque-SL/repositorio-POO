@@ -34,10 +34,13 @@ class ManterServicoUI:
     
     def inserir():
         desc = st.text_input("Descreva o serviço prestado")
-        valor = st.text_input("Informe o valor")
-        if st.button("registrar"):
-            View.servico_inserir(desc, valor)
-            st.success("Serviço registrado com sucesso")
+        valor = st.text_input("Informe o valor", help="A moeda de transação é Real. Não é necessário o uso de cifrão (R$).")
+        if st.button("inserir"):
+            try:
+                View.servico_inserir(desc, valor)
+                st.success("Serviço registrado com sucesso")
+            except ValueError:
+                st.write("Valor e/ou descrição inválidos.")
             time.sleep(2)
             st.rerun()
 

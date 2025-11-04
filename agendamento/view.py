@@ -41,23 +41,23 @@ class View:
         return None
 
     def servico_listar():
-       r = ServicoDAO.listar()
-       r.sort(key = lambda obj : obj.get_descricao())
-       return r
+        r = ServicoDAO.listar()
+        r.sort(key = lambda obj : obj.get_descricao())
+        return r
     
     def servico_listar_id(id):
         return ServicoDAO.listar_id(id)
     
     def servico_inserir(desc, valor):
-       servico = Servico(0, desc, valor)
-       ServicoDAO.inserir(servico)
+        servico = Servico(0, desc, valor)
+        ServicoDAO.inserir(servico)
 
     def servico_atualizar(id, desc, valor):
         servico = Servico(id, desc, valor)
         ServicoDAO.atualizar(servico)
         
     def servico_excluir(id):
-        servico = Servico(id, "", "")
+        servico = Servico(id, "a", "0")
         ServicoDAO.excluir(servico)
 
     def horario_inserir(data, confirmado = False, id_cliente = None, id_profissional = None, id_servico = None):
