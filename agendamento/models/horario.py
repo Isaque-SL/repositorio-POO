@@ -34,8 +34,6 @@ class Horario:
         self.__id = id
     
     def set_data(self, data):
-        if data < datetime.now():
-            raise ValueError("Data não pode ser no passado.")
         self.__data = data
     
     def set_confirmado(self, confirmado):

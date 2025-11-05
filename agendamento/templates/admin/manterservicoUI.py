@@ -30,7 +30,7 @@ class ManterServicoUI:
             for obj in servicos:
                 list_dic.append(obj.to_json())
             df = pd.DataFrame(list_dic)
-            st.dataframe(df)
+            st.dataframe(df, hide_index=True)
     
     def inserir():
         desc = st.text_input("Descreva o serviço prestado")
@@ -39,10 +39,10 @@ class ManterServicoUI:
             try:
                 View.servico_inserir(desc, float(valor))
                 st.success("Serviço registrado com sucesso")
+                time.sleep(2)
+                st.rerun()
             except ValueError as erro:
                 st.error(erro)
-            time.sleep(2)
-            st.rerun()
 
     def atualizar():
         servicos = View.servico_listar()
@@ -57,6 +57,8 @@ class ManterServicoUI:
                     id = op.get_id()
                     View.servico_atualizar(id, desc, valor)
                     st.success("Serviço atualizado com sucesso")
+                    time.sleep(2)
+                    st.rerun()
                 except ValueError as erro:
                     st.error(erro)
 
@@ -71,7 +73,7 @@ class ManterServicoUI:
                     id = op.get_id()
                     View.servico_excluir(id)
                     st.success("Serviço removido com sucesso")
+                    time.sleep(2)
+                    st.rerun()
                 except ValueError as erro:
                     st.error(erro)
-                time.sleep(2)
-                st.rerun()

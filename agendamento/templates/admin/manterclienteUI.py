@@ -30,7 +30,7 @@ class ManterClienteUI:
             for obj in clientes:
                 list_dic.append(obj.to_json())
             df = pd.DataFrame(list_dic)
-            st.dataframe(df)
+            st.dataframe(df, hide_index=True)
     
     def inserir():
         nome = st.text_input("Informe o nome")
@@ -60,9 +60,9 @@ class ManterClienteUI:
                 try:
                     id = op.get_id()
                     View.cliente_atualizar(id, nome, email, fone, senha)
+                    st.success("Cliente atualizado com sucesso")
                 except ValueError as erro:
                     st.error(erro)
-                st.success("Cliente atualizado com sucesso")
 
     def excluir():
         clientes = View.cliente_listar()
@@ -74,6 +74,6 @@ class ManterClienteUI:
                 try:
                     id = op.get_id()
                     View.cliente_excluir(id)
+                    st.success("Cliente excluído com sucesso")
                 except ValueError as erro:
                     st.error(erro)
-                st.success("Cliente excluído com sucesso")

@@ -30,7 +30,7 @@ class ManterProfissionalUI:
             for obj in profissionais:
                 list_dic.append(obj.to_json())
             df = pd.DataFrame(list_dic)
-            st.dataframe(df)
+            st.dataframe(df, hide_index=True)
     
     def inserir():
         nome = st.text_input("Informe o nome")
@@ -42,10 +42,10 @@ class ManterProfissionalUI:
             try:
                 View.profissional_inserir(nome, especialidade, conselho, email, senha)
                 st.success("Profissional inserido com sucesso")
+                time.sleep(2)
+                st.rerun()            
             except ValueError as erro:
                 st.error(erro)
-            time.sleep(2)
-            st.rerun()
 
     def atualizar():
         profissionais = View.profissional_listar()
@@ -62,9 +62,11 @@ class ManterProfissionalUI:
                 try:
                     id = op.get_id()
                     View.profissional_atualizar(id, nome, especialidade, conselho, email, senha)
+                    st.success("Profissional atualizado com sucesso")
+                    time.sleep(2)
+                    st.rerun()
                 except ValueError as erro:
                     st.error(erro)
-                st.success("Profissional atualizado com sucesso")
 
     def excluir():
         profissionais = View.profissional_listar()
@@ -76,6 +78,8 @@ class ManterProfissionalUI:
                 try:
                     id = op.get_id()
                     View.profissional_excluir(id)
+                    st.success("Profissional excluído com sucesso")
+                    time.sleep(2)
+                    st.rerun()
                 except ValueError as erro:
                     st.error(erro)
-                st.success("Profissional excluído com sucesso")
