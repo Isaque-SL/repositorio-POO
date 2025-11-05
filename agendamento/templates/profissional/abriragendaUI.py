@@ -9,13 +9,13 @@ class AbrirAgendaUI:
         data = st.text_input("Informe a data no formato dd/mm/aaaa")
         hora_inicio = st.text_input("Informe o horário inicial no formato HH:MM")
         hora_final = st.text_input("Informe o horário final no formato HH:MM")
-        intervalo = int(st.text_input("Informe o intervalo entre os horários (min)"))
+        intervalo = st.text_input("Informe o intervalo entre os horários (min)")
 
         if st.button("Abrir Agenda"):
-            dt = datetime.strptime(data, "%d/%m/%Y")
-            if dt.date() < datetime.now().date():
+            dt = datetime.strptime(f"{data} {hora_inicio}", "%d/%m/%Y %H:%M")
+            if dt < datetime.now():
                 raise ValueError("Data não pode ser no passado.")
-            if  intervalo > 120:
+            if  int(intervalo) > 120:
                 raise ValueError("Intervalo máximo é 120 min")
             horario_inicio_str = f"{data} {hora_inicio}"
             horario_final_str = f"{data} {hora_final}"
@@ -25,6 +25,6 @@ class AbrirAgendaUI:
             if horario > horario_final:
                 horario_final += timedelta(days=1)
             while horario < horario_final:
-                horario += timedelta(minutes=intervalo)
+                horario += timedelta(minutes=int(intervalo))
                 View.horario_inserir(data=horario, id_profissional=st.session_state["usuario_id"])
             st.success("Agenda registrada com sucesso")

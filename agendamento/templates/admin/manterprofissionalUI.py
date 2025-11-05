@@ -39,8 +39,11 @@ class ManterProfissionalUI:
         email = st.text_input("Informe o e-mail")
         senha = st.text_input("Informe a senha")
         if st.button("Inserir"):
-            View.profissional_inserir(nome, especialidade, conselho, email, senha)
-            st.success("Profissional inserido com sucesso")
+            try:
+                View.profissional_inserir(nome, especialidade, conselho, email, senha)
+                st.success("Profissional inserido com sucesso")
+            except ValueError as erro:
+                st.error(erro)
             time.sleep(2)
             st.rerun()
 
@@ -56,8 +59,11 @@ class ManterProfissionalUI:
             email = st.text_input("Novo e-mail", op.get_email())
             senha = st.text_input("Nova senha", op.get_senha(), type="password")
             if st.button("Atualizar"):
-                id = op.get_id()
-                View.profissional_atualizar(nome, especialidade, conselho, email, senha)
+                try:
+                    id = op.get_id()
+                    View.profissional_atualizar(id, nome, especialidade, conselho, email, senha)
+                except ValueError as erro:
+                    st.error(erro)
                 st.success("Profissional atualizado com sucesso")
 
     def excluir():
@@ -67,6 +73,9 @@ class ManterProfissionalUI:
         else:
             op = st.selectbox("Exclusão de Profissionais", profissionais)
             if st.button("Excluir"):
-                id = op.get_id()
-                View.profissional_excluir(id)
+                try:
+                    id = op.get_id()
+                    View.profissional_excluir(id)
+                except ValueError as erro:
+                    st.error(erro)
                 st.success("Profissional excluído com sucesso")

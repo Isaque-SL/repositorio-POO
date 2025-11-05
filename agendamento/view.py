@@ -18,15 +18,35 @@ class View:
         return ClienteDAO.listar_id(id)
     
     def cliente_inserir(nome, email, fone, senha):
-       cliente = Cliente(0, nome, email, fone, senha)
-       ClienteDAO.inserir(cliente)
+        if "admin" == email:
+            raise ValueError("E-mail inacessível.")
+        for obj in View.cliente_listar():
+            if obj.get_email() == email:
+                raise ValueError("Este e-mail já foi cadastrado.")
+        for obj in View.profissional_listar():
+            if obj.get_email() == email:
+                raise ValueError("Este e-mail já foi cadastrado.")
+        cliente = Cliente(0, nome, email, fone, senha)
+        ClienteDAO.inserir(cliente)
 
     def cliente_atualizar(id, nome, email, fone, senha):
+        if "admin" == email:
+            raise ValueError("E-mail inacessível.")
+        for obj in View.cliente_listar():
+            if obj.get_email() == email and obj.get_id() != id:
+                raise ValueError("Este e-mail já foi cadastrado.")
+        for obj in View.profissional_listar():
+            if obj.get_email() == email and obj.get_id() != id:
+                raise ValueError("Este e-mail já foi cadastrado.")
+
         cliente = Cliente(id, nome, email, fone, senha)
         ClienteDAO.atualizar(cliente)
         
     def cliente_excluir(id):
-        cliente = Cliente(id, "", "", "", "")
+        for obj in View.horario_listar():
+            if obj.get_id_cliente == id:
+                raise ValueError("Cliente tem horário marcado : Não é possível excluir.")
+        cliente = Cliente(id, "None", "None", "", "0")
         ClienteDAO.excluir(cliente)
 
     def cliente_criar_admin():
@@ -49,18 +69,29 @@ class View:
         return ServicoDAO.listar_id(id)
     
     def servico_inserir(desc, valor):
+        for obj in View.servico_listar():
+            if obj.get_descricao() == desc:
+                raise ValueError("Serviço já cadastrado")
         servico = Servico(0, desc, valor)
         ServicoDAO.inserir(servico)
 
     def servico_atualizar(id, desc, valor):
+        for obj in View.servico_listar():
+            if obj.get_id() != id and obj.get_descricao() == desc:
+                raise ValueError("Descrição já cadastrada em outro serviço")
         servico = Servico(id, desc, valor)
         ServicoDAO.atualizar(servico)
         
     def servico_excluir(id):
-        servico = Servico(id, "a", "0")
+        for obj in View.horario_listar():
+            if obj.get_id_servico() == id:
+                raise ValueError("Serviço já agendado: não é possível excluir")
+        servico = Servico(id, "None", "0")
         ServicoDAO.excluir(servico)
 
     def horario_inserir(data, confirmado = False, id_cliente = None, id_profissional = None, id_servico = None):
+        
+        
         c = Horario(0, data)
         c.set_confirmado(confirmado)
         c.set_id_cliente(id_cliente)
@@ -106,15 +137,34 @@ class View:
         return ProfissionalDAO.listar_id(id)
     
     def profissional_inserir(nome, especialidade, conselho, email, senha):
-       profissional = Profissional(0, nome, especialidade, conselho, email, senha)
-       ProfissionalDAO.inserir(profissional)
+        if "admin" == email:
+            raise ValueError("E-mail inacessível.")
+        for obj in View.profissional_listar():
+            if obj.get_email() == email:
+                raise ValueError("Este e-mail já foi cadastrado.")
+        for obj in View.cliente_listar():
+            if obj.get_email() == email:
+                raise ValueError("Este e-mail já foi cadastrado.")
+        profissional = Profissional(0, nome, especialidade, conselho, email, senha)
+        ProfissionalDAO.inserir(profissional)
 
     def profissional_atualizar(id, nome, especialidade, conselho, email, senha):
+        if "admin" == email:
+            raise ValueError("E-mail inacessível.")
+        for obj in View.profissional_listar():
+            if obj.get_email() == email and obj.get_id() != id:
+                raise ValueError("Este e-mail já foi cadastrado.")
+        for obj in View.cliente_listar():
+            if obj.get_email() == email and obj.get_id() != id:
+                raise ValueError("Este e-mail já foi cadastrado.")
         profissional = Profissional(id, nome, especialidade, conselho, email, senha)
         ProfissionalDAO.atualizar(profissional)
         
     def profissional_excluir(id):
-        profissional = Profissional(id, "", "", "", "", "")
+        for obj in View.horario_listar():
+            if obj.get_id_profissional == id:
+                raise ValueError("Profissional tem horário marcado : Não é possível excluir.")
+        profissional = Profissional(id, "None", "", "", "None", "0")
         ProfissionalDAO.excluir(profissional)
     
     def profissional_autenticar(email, senha):

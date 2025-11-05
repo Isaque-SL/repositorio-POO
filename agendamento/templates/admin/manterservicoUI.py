@@ -37,10 +37,10 @@ class ManterServicoUI:
         valor = st.text_input("Informe o valor", help="A moeda de transação é Real. Não é necessário o uso de cifrão (R$).")
         if st.button("inserir"):
             try:
-                View.servico_inserir(desc, valor)
+                View.servico_inserir(desc, float(valor))
                 st.success("Serviço registrado com sucesso")
-            except ValueError:
-                st.write("Valor e/ou descrição inválidos.")
+            except ValueError as erro:
+                st.error(erro)
             time.sleep(2)
             st.rerun()
 
@@ -53,9 +53,12 @@ class ManterServicoUI:
             desc = st.text_input("Nova descrição", op.get_descricao())
             valor = st.text_input("Novo valor", op.get_valor())
             if st.button("Atualizar"):
-                id = op.get_id()
-                View.servico_atualizar(id, desc, valor)
-                st.success("Serviço atualizado com sucesso")
+                try:
+                    id = op.get_id()
+                    View.servico_atualizar(id, desc, valor)
+                    st.success("Serviço atualizado com sucesso")
+                except ValueError as erro:
+                    st.error(erro)
 
     def excluir():
         servicos = View.servico_listar()
@@ -64,6 +67,11 @@ class ManterServicoUI:
         else:
             op = st.selectbox("Remoção de Serviços", servicos)
             if st.button("Excluir"):
-                id = op.get_id()
-                View.servico_excluir(id)
-                st.success("Serviço removido com sucesso")
+                try:
+                    id = op.get_id()
+                    View.servico_excluir(id)
+                    st.success("Serviço removido com sucesso")
+                except ValueError as erro:
+                    st.error(erro)
+                time.sleep(2)
+                st.rerun()

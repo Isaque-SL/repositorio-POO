@@ -1,9 +1,5 @@
 class Servico:
     def __init__(self, id, descricao, valor):
-        if descricao == "":
-            raise ValueError("Descrição inválida.")
-        if int(valor) < 0:
-            raise ValueError("Valor inválido.")
         self.set_id(id)
         self.set_descricao(descricao)
         self.set_valor(valor)
@@ -15,9 +11,13 @@ class Servico:
         self.__id = id
 
     def set_descricao(self, desc):
+        if desc == "":
+            raise ValueError("Descrição inválida.")
         self.__desc = desc
 
     def set_valor(self, valor):
+        if float(valor) <= 0:
+            raise ValueError("Valor inválido.")
         self.__valor = valor
 
     def get_id(self):
