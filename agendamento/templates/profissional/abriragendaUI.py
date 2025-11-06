@@ -32,5 +32,5 @@ class AbrirAgendaUI:
                 st.success("Agenda registrada com sucesso")
                 time.sleep(2)
                 st.rerun()
-            except:
-                st.error("Insira os dados no formato indicado.")
+            except ValueError as erro:
+                st.error(erro)

@@ -6,12 +6,12 @@ from templates.admin.perfiladminUI import AlterarSenhaUI
 from templates.abrircontaUI import AbrirContaUI
 from templates.profissional.abriragendaUI import AbrirAgendaUI
 from templates.profissional.visualizaragendaUI import VisualizarAgendaUI
+from templates.profissional.confirmarservicoUI import ConfirmarServicoUI
 from templates.loginUI import LoginUI
 from templates.cliente.perfilclienteUI import PerfilClienteUI
 from templates.profissional.perfilprofissionalUI import PerfilProfissionalUI
 from templates.cliente.agendarservicoUI import AgendarServicoUI
 from templates.cliente.meusservicosUI import MeusServicosUI
-from templates.cliente.confirmarservicoUI import ConfirmarServicoUI
 from view import View
 import streamlit as st
 
@@ -24,24 +24,24 @@ class IndexUI:
             AbrirContaUI.main()
 
     def menu_profissional():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Abrir Agenda", "Minha Agenda"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Abrir Agenda", "Minha Agenda", "Confirmar Serviço"])
         if op == "Meus Dados":
             PerfilProfissionalUI.main()
         if op == "Abrir Agenda":
             AbrirAgendaUI.main()
         if op == "Minha Agenda":
             VisualizarAgendaUI.main()
-            
+        if op == "Confirmar Serviço":
+            ConfirmarServicoUI.main()
+
     def menu_cliente():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço", "Meus Serviços", "Confirmar Serviço"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço", "Meus Serviços"])
         if op == "Meus Dados":
             PerfilClienteUI.main()
         if op == "Agendar Serviço":
             AgendarServicoUI.main()
         if op == "Meus Serviços":
             MeusServicosUI.main()
-        if op == "Confirmar Serviço":
-            ConfirmarServicoUI.main()
     
     def menu_admin():            
         op = st.sidebar.selectbox("Menu", ["Cadastro de Clientes", "Cadastro de Serviços", "Cadastro de Horários", "Cadastro de Profissionais", "Meus Dados"])
