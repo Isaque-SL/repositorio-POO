@@ -1,33 +1,29 @@
 from view import View
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 import streamlit as st
 import time
+import pytz
 
 class AbrirAgendaUI:
     def main():
         st.header("Abrir Agenda")
         data = st.date_input("Informe a data no formato dd/mm/aaaa", format="DD/MM/YYYY")
-        hora_inicio = st.text_input("Informe o horário inicial no formato HH:MM")
+        hora_inicio = st.time_input("Informe o horário inicial no formato HH:MM")
         hora_final = st.time_input("Informe o horário final no formato HH:MM")
-        intervalo = st.number_input("Informe o intervalo entre os horários (min)")
-
+        intervalo = st.number_input("Informe o intervalo entre os horários (min)", min_value=10, max_value = 120)
+ 
         if st.button("Abrir Agenda"):
             try:
-                dt = datetime.strptime(f"{data} {hora_inicio}", "%d/%m/%Y %H:%M")
-                if dt < datetime.now():
+                horario_inicio = datetime(year=data.year, month=data.month, day=data.day, hour=hora_inicio.hour, minute=hora_inicio.minute, tzinfo=pytz.timezone('America/Sao_Paulo'))
+                if horario_inicio < datetime.now(tz=pytz.timezone('America/Sao_Paulo')):
                     raise ValueError("Data não pode ser no passado.")
-                if  int(intervalo) > 120:
-                    raise ValueError("Intervalo máximo é 120 min")
-                horario_inicio_str = f"{data} {hora_inicio}"
-                horario_final_str = f"{data} {hora_final}"
-                horario_final = datetime.strptime(horario_final_str, "%d/%m/%Y %H:%M")
-                horario = datetime.strptime(horario_inicio_str, "%d/%m/%Y %H:%M")
+                horario_final = datetime(year=data.year, month=data.month, day=data.day, hour=hora_final.hour, minute=hora_final.minute, tzinfo=pytz.timezone('America/Sao_Paulo'))
+                horario = horario_inicio
                 View.horario_inserir(data=horario, id_profissional=st.session_state["usuario_id"])
-                if horario > horario_final:
+                if horario_inicio > horario_final:
                     horario_final += timedelta(days=1)
                 while horario < horario_final:
-                    horario += timedelta(minutes=int(intervalo))
+                    horario += timedelta(minutes=intervalo)
                     View.horario_inserir(data=horario, id_profissional=st.session_state["usuario_id"])
                 st.success("Agenda registrada com sucesso")
                 time.sleep(2)

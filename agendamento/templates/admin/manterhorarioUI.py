@@ -3,6 +3,7 @@ import pandas as pd
 from view import View
 import time
 from datetime import datetime
+import pytz
 
 class ManterHorarioUI:
     def main():
@@ -43,7 +44,7 @@ class ManterHorarioUI:
         clientes = View.cliente_listar()
         profissionais = View.profissional_listar()
         servicos = View.servico_listar()
-        data = st.text_input("Informe a data e horário do serviço", datetime.now().strftime("%d/%m/%Y %H:%M"))
+        data = st.text_input("Informe a data e horário do serviço", datetime.now(tz=pytz.timezone('America/Sao_Paulo')).strftime("%d/%m/%Y %H:%M"))
         confirmado = st.checkbox("Confirmado")
         cliente = st.selectbox("Informe o cliente", clientes, index = None)
         profissional = st.selectbox("Informe o profissional", profissionais, index = None)
@@ -51,6 +52,10 @@ class ManterHorarioUI:
         
         if st.button("Inserir"):
             try:
+                data = datetime.strptime(data, "%d/%m/%Y %H:%M")
+                data_tz = pytz.timezone('America/Sao_Paulo').localize(data)
+                if data_tz < datetime.now(pytz.timezone('America/Sao_Paulo')):
+                    raise ValueError("Data não pode ser no passado.")
                 id_cliente = None
                 id_servico = None
                 id_profissional = None
@@ -60,7 +65,7 @@ class ManterHorarioUI:
                     id_servico = servico.get_id()
                 if profissional != None:
                     id_profissional = profissional.get_id()
-                View.horario_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_profissional, id_servico)
+                View.horario_inserir(data, confirmado, id_cliente, id_profissional, id_servico)
                 st.success("Horário inserido com sucesso")
                 time.sleep(2)
                 st.rerun()

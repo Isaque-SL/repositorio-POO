@@ -7,7 +7,8 @@ from models.horarioDAO import HorarioDAO
 from models.profissional import Profissional
 from models.profissionalDAO import ProfissionalDAO
 from datetime import datetime
-import streamlit as st
+import pytz
+
 class View:
     def cliente_listar():
        r = ClienteDAO.listar()
@@ -90,8 +91,6 @@ class View:
         ServicoDAO.excluir(servico)
 
     def horario_inserir(data, confirmado = False, id_cliente = None, id_profissional = None, id_servico = None):
-        if data < datetime.now():
-            raise ValueError("Data não pode ser no passado.")
         for obj in View.horario_listar():
             if (obj.get_data() == data) and (obj.get_id_profissional() == id_profissional):
                 raise ValueError("Horário já cadastrado.")
