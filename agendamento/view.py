@@ -6,8 +6,9 @@ from models.horario import Horario
 from models.horarioDAO import HorarioDAO
 from models.profissional import Profissional
 from models.profissionalDAO import ProfissionalDAO
+from models.plano import Plano
+from models.planoDAO import PlanoDAO
 from datetime import datetime
-import pytz
 
 class View:
     def cliente_listar():
@@ -18,7 +19,7 @@ class View:
     def cliente_listar_id(id):
         return ClienteDAO.listar_id(id)
     
-    def cliente_inserir(nome, email, fone, senha):
+    def cliente_inserir(nome, email, fone, senha, id_plano = 0):
         if "admin" == email:
             raise ValueError("E-mail inacessível.")
         for obj in View.cliente_listar():
@@ -27,10 +28,10 @@ class View:
         for obj in View.profissional_listar():
             if obj.get_email() == email:
                 raise ValueError("Este e-mail já foi cadastrado.")
-        cliente = Cliente(0, nome, email, fone, senha)
+        cliente = Cliente(0, nome, email, fone, senha, id_plano)
         ClienteDAO.inserir(cliente)
 
-    def cliente_atualizar(id, nome, email, fone, senha):
+    def cliente_atualizar(id, nome, email, fone, senha, id_plano = 0):
         if "admin" == email:
             raise ValueError("E-mail inacessível.")
         for obj in View.cliente_listar():
@@ -40,7 +41,7 @@ class View:
             if obj.get_email() == email and obj.get_id() != id:
                 raise ValueError("Este e-mail já foi cadastrado.")
 
-        cliente = Cliente(id, nome, email, fone, senha)
+        cliente = Cliente(id, nome, email, fone, senha, id_plano)
         ClienteDAO.atualizar(cliente)
         
     def cliente_excluir(id):
@@ -185,3 +186,32 @@ class View:
         for p in View.profissional_listar():
             if p.get_email() == "admin":
                 return View.profissional_inserir("admin", "admin", "admin", "email", "1234")
+
+    def planos_listar():
+       r = PlanoDAO.listar()
+       r.sort(key = lambda obj : obj.get_tema())
+       return r
+    
+    def plano_listar_id(id):
+        return PlanoDAO.listar_id(id)
+    
+    def plano_inserir(tema, preco, servicos):
+        for obj in View.plano_listar():
+            if obj.tema() == tema:
+                raise ValueError("Tema não pode ser igual")
+        plano = Plano(0, tema, preco, servicos)
+        PlanoDAO.inserir(plano)
+    
+    def plano_atualizar(id, tema, preco, servicos):
+        for obj in View.planos_listar():
+            if obj.get_tema() == tema:
+                raise ValueError("Tema não pode ser igual")
+        plano = Plano(id, tema, preco, servicos)
+        PlanoDAO.inserir(plano)
+    
+    def plano_excluir(id):
+        for obj in View.cliente_listar():
+            if obj.get_id_plano() == id:
+                raise ValueError("Esse plano já possui clientes")
+        plano = Plano(id, "Nulo", "Nulo", "Nulo")
+        PlanoDAO.excluir(plano)

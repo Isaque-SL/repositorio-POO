@@ -1,25 +1,25 @@
 import json
-from models.horario import Horario
+from models.plano import Plano
 
-class HorarioDAO:
+class PlanoDAO:
     __objetos = []
 
     @classmethod
-    def inserir(cls, obj):
+    def inserir(cls, plano):
         cls.abrir()
         id = 0
         for aux in cls.__objetos:
             if aux.get_id() > id:
                 id = aux.get_id()
-        obj.set_id(id + 1)
-        cls.__objetos.append(obj)
+        plano.set_id(id + 1)
+        cls.__objetos.append(plano)
         cls.salvar()
 
     @classmethod
     def listar(cls):
         cls.abrir()
         return cls.__objetos
-    
+
     @classmethod
     def listar_id(cls, id):
         cls.abrir()
@@ -27,13 +27,13 @@ class HorarioDAO:
             if obj.get_id() == id:
                 return obj
         return None
-    
+
     @classmethod
-    def atualizar(cls, obj):
-        aux = cls.listar_id(obj.get_id())
+    def atualizar(cls, plano_novo):
+        aux = cls.listar_id(plano_novo.get_id())
         if aux != None:
             cls.__objetos.remove(aux)
-            cls.__objetos.append(obj)
+            cls.__objetos.append(plano_novo)
             cls.salvar()
 
     @classmethod
@@ -42,20 +42,20 @@ class HorarioDAO:
         if aux != None:
             cls.__objetos.remove(aux)
             cls.salvar()
-    
+
     @classmethod
     def abrir(cls):
         cls.__objetos = []
         try:
-            with open("horarios.json", mode="r") as arquivo:
+            with open("plano.json", mode="r") as arquivo:
                 list_dic = json.load(arquivo)
                 for dic in list_dic:
-                    obj = Horario.from_json(dic)
+                    obj = Plano.from_json(dic)
                     cls.__objetos.append(obj)
         except FileNotFoundError:
             pass
 
     @classmethod
     def salvar(cls):
-        with open("horarios.json", mode="w") as arquivo:
-            json.dump(cls.__objetos, arquivo, default = Horario.to_json)
+        with open("planos.json", mode="w") as arquivo:
+            json.dump(cls.__objetos, arquivo, default = Plano.to_json)

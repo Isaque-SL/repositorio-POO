@@ -12,6 +12,7 @@ from templates.cliente.perfilclienteUI import PerfilClienteUI
 from templates.profissional.perfilprofissionalUI import PerfilProfissionalUI
 from templates.cliente.agendarservicoUI import AgendarServicoUI
 from templates.cliente.meusservicosUI import MeusServicosUI
+from templates.admin.manterplanoUI import ManterPlanoUI
 from view import View
 import streamlit as st
 
@@ -53,6 +54,8 @@ class IndexUI:
             ManterHorarioUI.main()
         if op == "Cadastro de Profissionais":
             ManterProfissionalUI.main()
+        if op == "Cadastro de Planos":
+            ManterPlanoUI.main()
         if op == "Meus Dados":
             AlterarSenhaUI.main()
     def sair_do_sistema():

@@ -53,8 +53,7 @@ class ManterHorarioUI:
         if st.button("Inserir"):
             try:
                 data = datetime.strptime(data, "%d/%m/%Y %H:%M")
-                data_tz = pytz.timezone('America/Sao_Paulo').localize(data)
-                if data_tz < datetime.now(pytz.timezone('America/Sao_Paulo')):
+                if data < datetime.now():
                     raise ValueError("Data não pode ser no passado.")
                 id_cliente = None
                 id_servico = None
@@ -65,6 +64,10 @@ class ManterHorarioUI:
                     id_servico = servico.get_id()
                 if profissional != None:
                     id_profissional = profissional.get_id()
+                else:
+                    st.error("Profissional é obrigatório")
+                    time.sleep(3)
+                    st.rerun()
                 View.horario_inserir(data, confirmado, id_cliente, id_profissional, id_servico)
                 st.success("Horário inserido com sucesso")
                 time.sleep(2)

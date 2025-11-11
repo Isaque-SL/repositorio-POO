@@ -1,10 +1,20 @@
 import streamlit as st
 from view import View
+from models.planoDAO import PlanoDAO
 import time
 
 class AgendarServicoUI:
     def main():
         st.header("Agendar Serviço")
+        cliente = View.cliente_listar_id(st.session_state["usuario_id"])
+        if cliente.get_id_plano() != 0:
+            plano = st.checkbox("Gostaria de agendar pelo seu plano?")
+        
+        if plano:
+            plano_cliente = PlanoDAO.listar_id(cliente.get_id_plano())
+            servicos = View.servico_listar()
+            for obj in 
+        
         profs = View.profissional_listar()
         if len(profs) == 0: 
             st.write("Nenhum profissional cadastrado")
